@@ -34,6 +34,13 @@ class Settings(BaseSettings):
     celery_broker_url: str | None = None
     celery_result_backend: str | None = None
 
+    cors_allowed_origins: list[str] = Field(
+        default_factory=lambda: [
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ],
+    )
+
     @property
     def effective_celery_broker(self) -> str:
         return self.celery_broker_url or self.redis_url
